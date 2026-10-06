@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
+        .card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
+        input, button { padding: 10px; font-size: 16px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; }
+        button { background-color: #007BFF; color: white; cursor: pointer; border: none; }
+        #result { margin-top: 20px; font-size: 18px; font-weight: bold; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Student Result Portal</h2>
+        <input type="text" id="studentId" placeholder="Enter Student ID (e.g. 101)">
+        <button onclick="fetchResult()">Search Result</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function fetchResult() {
+            const id = document.getElementById('studentId').value;
+            const resDiv = document.getElementById('result');
+            try {
+                // Connects to the backend running on port 5000
+                const response = await fetch(`http://localhost:5000/result/${id}`);
+                const data = await response.json();
+                if (data.error) {
+                    resDiv.innerHTML = `<span style="color:red;">${data.error}</span>`;
+                } else {
+                    resDiv.innerHTML = `Student: <span style="color:green;">${data.name}</span> | Grade: <span style="color:blue;">${data.grade}</span>`;
+                }
+            } catch (err) {
+                resDiv.innerHTML = "<span style='color:red;'>Could not connect to Backend API</span>";
+            }
+        }
+    </script>
+</body>
+</html>
