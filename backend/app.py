@@ -6,7 +6,7 @@ CORS(app)  # 2. Enable CORS for all routes
 
 @app.route('/result/<student_id>')
 def get_result(student_id):
-    data = {"101": {"name": "Alice", "grade": "A"}, "102": {"name": "Bob", "grade": "B"}}
+    data = {"558": {"name": "Kushmitha", "grade": "A"}, "502": {"name": "Ammu", "grade": "B"}}
     return jsonify(data.get(student_id, {"error": "Student not found"}))
 
 if __name__ == '__main__':
